@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BinarySearchTree
 {
-    internal class CheckingValuesInBinarySearchTree<T> where T:IComparable<T>
+    internal class SearchingOfAnElementInBinarySearchTree<T> where T:IComparable<T>
     {
         public T NodeData { get; set; }
-        public CheckingValuesInBinarySearchTree<T> leftTree { get; set; }
-        public CheckingValuesInBinarySearchTree<T> rightTree { get; set; }
+        public SearchingOfAnElementInBinarySearchTree<T>leftTree { get; set; }
+        public SearchingOfAnElementInBinarySearchTree<T>rightTree { get; set; }
 
-        public CheckingValuesInBinarySearchTree(T nodeData)
+        public SearchingOfAnElementInBinarySearchTree(T nodeData)
 
 
         {
@@ -30,14 +30,14 @@ namespace BinarySearchTree
             if ((currentNodeValue.CompareTo(item)) > 0)
             {
                 if (this.leftTree == null)
-                    this.leftTree = new CheckingValuesInBinarySearchTree<T>(item);
+                    this.leftTree = new SearchingOfAnElementInBinarySearchTree<T>(item);
                 else
                     this.leftTree.Insert(item);
             }
             else
             {
                 if (this.rightTree == null)
-                    this.rightTree = new CheckingValuesInBinarySearchTree<T>(item);
+                    this.rightTree = new SearchingOfAnElementInBinarySearchTree<T>(item);
                 else
                     this.rightTree.Insert(item);
             }
@@ -62,6 +62,24 @@ namespace BinarySearchTree
         public void GetSize()
         {
             Console.WriteLine("Size" + " " + (1 + this.leftCount + this.rightCount));
+        }
+
+        public bool IfExists(T element, SearchingOfAnElementInBinarySearchTree<T> node)
+        {
+            if (node == null)
+                return false;
+            if (node.NodeData.Equals(element))
+            {
+                Console.WriteLine("Found the element in BST" + " " + node.NodeData);
+                result = true;
+            }
+            else
+                Console.WriteLine("Current element is {0} in BST", node.NodeData);
+            if (element.CompareTo(node.NodeData) < 0)
+                IfExists(element, node.leftTree);
+            if (element.CompareTo(node.NodeData) > 0)
+                IfExists(element, node.rightTree);
+            return result;
         }
 
     }
